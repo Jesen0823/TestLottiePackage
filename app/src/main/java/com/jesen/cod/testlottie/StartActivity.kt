@@ -6,14 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.airbnb.lottie.LottieAnimationView
-import kotlinx.android.synthetic.main.activity_start.*
+import com.jesen.cod.testlottie.databinding.ActivityStartBinding
 
 class StartActivity : AppCompatActivity() {
     lateinit var mLottieAnim: LottieAnimationView
 
+    private lateinit var binding: ActivityStartBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_start)
+        binding = ActivityStartBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         mLottieAnim = findViewById(R.id.lottie_anim_view)
         mLottieAnim.addAnimatorUpdateListener {
@@ -22,7 +24,7 @@ class StartActivity : AppCompatActivity() {
             }
         }
 
-        skipBtn.setOnClickListener {
+        binding.skipBtn.setOnClickListener {
             mLottieAnim.pauseAnimation()
             startMainPage()
         }

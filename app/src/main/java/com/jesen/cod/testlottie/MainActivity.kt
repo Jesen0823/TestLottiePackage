@@ -4,6 +4,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,24 +12,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.activity_main.*
+import com.jesen.cod.testlottie.databinding.ActivityMainBinding
 import java.util.ArrayList
 
 class MainActivity : AppCompatActivity(), ItemCallBack {
     var jsPaths: MutableList<String> = ArrayList()
     lateinit var mLottieView: LottieAnimationView
     lateinit var mDialog: BottomSheetDialog
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater);
+        setContentView(binding.root)
         if (jsPaths.isEmpty()) {
             Thread {
                 jsPaths = AssertUtil.getAssetPath(this) as MutableList<String>
             }.start()
         }
 
-        choiceBtn.setOnClickListener {
+        binding.choiceBtn.setOnClickListener {
             showSelectDialog()
         }
         mLottieView = findViewById(R.id.lottie_view)
